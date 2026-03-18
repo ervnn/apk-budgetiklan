@@ -1,41 +1,81 @@
-# 🚀 Tugas Besar: Sistem Pengelolaan Anggaran Iklan Digital
+# 📊 Tugas Besar: Sistem Pengelolaan Anggaran Iklan Digital
 
-> **Dosen Pengampu:** Muhammad Shiddiq Azis, S.T., MBA
-
----
-
-## 📊 Perancangan Sistem (DFD)
-
-### DFD Level 0
-![DFD Level 0](assets/dfdlvl0.png)
-*Diagram konteks yang menunjukkan interaksi antara Admin, User, dan sistem.*
-
-### DFD Level 1
-![DFD Level 1](assets/dfdlvl1.png)
-*Detail proses utama seperti input campaign, pengelolaan budget, realisasi biaya, dan laporan.*
+## 👨‍🏫 Dosen Pengampu
+Muhammad Shiddiq Azis, S.T., MBA
 
 ---
 
-## 🎨 Mockup Antarmuka
-Rancangan UI aplikasi yang berfokus pada kemudahan penggunaan dan monitoring anggaran.
+## 🛠️ Teknologi yang Digunakan
 
-| Login | Dashboard | Kelola Campaign | Input Realisasi (User) |
-| :---: | :---: | :---: | :---: |
-| ![Login](assets/) | ![Dashboard Admin](assets/) | ![Campaign](assets/Campaign.png) | ![Realisasi](assets/) |
-
----
-
-## 🛠️ Stack Teknologi
-- **Frontend:** React + Vite  
-- **Backend:** Node.js  
-- **Database:** Supabase (PostgreSQL)
+- **Frontend**: (contoh: HTML, CSS, JavaScript / React / Vue)
+- **Backend**: (contoh: Node.js / Golang / PHP / Java Spring)
+- **Database**: (contoh: MySQL / PostgreSQL / MongoDB)
 
 ---
 
-## 📂 Cara Instalasi
-1. Clone repository
-   ```bash
-   git clone https://github.com/ervnn/apk-budgetiklan.git
-2. cd nama-repo
-3. npm install
-4. npm run dev
+## 📌 Deskripsi Singkat
+
+Aplikasi ini digunakan untuk membantu pengguna dalam mengelola anggaran iklan digital secara terstruktur.  
+Terdapat dua role utama:
+- **Admin** → mengelola campaign dan anggaran
+- **User** → mencatat realisasi biaya iklan
+
+---
+
+# 📊 Data Flow Diagram (DFD)
+
+## 🔹 DFD Level 0
+![DFD Level 0](./assets/dfd-level-0.png)
+
+## 🔹 DFD Level 1
+![DFD Level 1](./assets/dfd-level-1.png)
+
+---
+
+# 🔐 Tampilan Sistem (Admin)
+
+## 🔹 Login Page
+![Login](./assets/login.png)
+
+## 🔹 Admin Dashboard
+![Admin Dashboard](./assets/admin-dashboard.png)
+
+## 🔹 Campaign Management
+![Campaign Management](./assets/campaign-management.png)
+
+## 🔹 Create Campaign
+![Create Campaign](./assets/create-campaign.png)
+
+## 🔹 Laporan Admin
+![Laporan Admin](./assets/laporan-admin.png)
+
+---
+
+# 👤 Tampilan Sistem (User)
+
+## 🔹 Dashboard User
+![Dashboard User](./assets/dashboard-user.png)
+
+## 🔹 Input Anggaran / Realisasi Biaya
+![Input Anggaran](./assets/input-anggaran.png)
+
+## 🔹 Laporan User
+![Laporan User](./assets/laporan-user.png)
+
+---
+
+# ⚙️ Fitur Utama
+
+### 👨‍💼 Admin
+- Menambahkan campaign iklan
+- Mengatur total budget
+- Melihat laporan keseluruhan
+- Mengelola data campaign
+
+### 👤 User
+- Memilih campaign
+- Menginput realisasi biaya
+- Melihat sisa budget
+- Melihat laporan penggunaan anggaran
+
+---
