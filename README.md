@@ -7,11 +7,11 @@
 ## 📊 Perancangan Sistem (DFD)
 
 ### DFD Level 0
-![DFD Level 0](assets/)
+![DFD Level 0](assets/dfdlvl0)
 *Diagram konteks yang menunjukkan interaksi antara Admin, User, dan sistem.*
 
 ### DFD Level 1
-![DFD Level 1](assets/)
+![DFD Level 1](assets/dfdlvl1)
 *Detail proses utama seperti input campaign, pengelolaan budget, realisasi biaya, dan laporan.*
 
 ---
