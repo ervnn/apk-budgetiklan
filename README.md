@@ -21,7 +21,7 @@ Rancangan UI aplikasi yang berfokus pada kemudahan penggunaan dan monitoring ang
 
 | Dashboard | Kelola Campaign | Input Realisasi (User) |
 | :---: | :---: | :---: |
-| ![Dashboard Admin](assets/) | ![Campaign](assets/) | ![Realisasi](assets/) |
+| ![Dashboard Admin](assets/) | ![Campaign](assets/Campaign.png) | ![Realisasi](assets/) |
 
 ---
 
