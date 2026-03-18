@@ -19,9 +19,9 @@
 ## 🎨 Mockup Antarmuka
 Rancangan UI aplikasi yang berfokus pada kemudahan penggunaan dan monitoring anggaran.
 
-| Dashboard | Kelola Campaign | Input Realisasi (User) |
-| :---: | :---: | :---: |
-| ![Dashboard Admin](assets/) | ![Campaign](assets/Campaign.png) | ![Realisasi](assets/) |
+| Login | Dashboard | Kelola Campaign | Input Realisasi (User) |
+| :---: | :---: | :---: | :---: |
+| ![Login](assets/) | ![Dashboard Admin](assets/) | ![Campaign](assets/Campaign.png) | ![Realisasi](assets/) |
 
 ---
 
