@@ -35,7 +35,7 @@ Terdapat dua role utama:
 # 🔐 Tampilan Sistem (Admin)
 
 ## 🔹 Login Page
-![Login](./assets/login.png)
+![Login](./assets/Login.png)
 
 ## 🔹 Admin Dashboard
 ![Admin Dashboard](./assets/admin-dashboard.png)
