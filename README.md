@@ -25,10 +25,10 @@ Terdapat dua role utama:
 # 📊 Data Flow Diagram (DFD)
 
 ## 🔹 DFD Level 0
-![DFD Level 0](./assets/dfd-level-0.png)
+![DFD Level 0](./assets/dfdlvl0.png)
 
 ## 🔹 DFD Level 1
-![DFD Level 1](./assets/dfd-level-1.png)
+![DFD Level 1](./assets/dfdlvl1.png)
 
 ---
 
