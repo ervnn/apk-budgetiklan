@@ -1,0 +1,129 @@
+.selection-page {
+  background-color: var(--bg-color);
+  padding: 2rem;
+}
+
+.selection-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+  border: 1px dashed rgba(35, 44, 101, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.icon-wrapper {
+  background-color: var(--dark-blue);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.selection-header h5 {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.cards-container {
+  display: flex;
+  gap: 2rem;
+  max-width: 900px;
+  width: 100%;
+  border: 1px dashed rgba(35, 44, 101, 0.3);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.selection-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+}
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.blue-icon {
+  background-color: rgba(0, 102, 204, 0.1);
+  color: var(--primary-blue);
+}
+
+.light-icon {
+  background-color: var(--bg-color);
+  color: var(--dark-blue);
+}
+
+.card-content {
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+.card-subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.card-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.card-content p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.selection-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.footer-square {
+  width: 20px;
+  height: 20px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+}
+
+.selection-footer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+  }
+}

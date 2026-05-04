@@ -1,0 +1,151 @@
+.admin-login-page {
+  background-color: var(--bg-color);
+  padding: 2rem;
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  color: var(--dark-blue);
+}
+
+.login-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.login-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 800px;
+  width: 100%;
+}
+
+.login-form-card {
+  width: 380px;
+  padding: 2.5rem;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.btn-back:hover {
+  color: var(--dark-blue);
+}
+
+.widget-card {
+  position: relative;
+  width: 320px;
+}
+
+.widget-inner {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.widget-icon {
+  background: var(--primary-blue);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.widget-lines .line {
+  background: #e2e8f0;
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.widget-lines .long { width: 80px; }
+.widget-lines .short { width: 40px; }
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 120px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 4px;
+}
+
+.bar.light { background: #93c5fd; }
+.bar.dark { background: var(--dark-blue); }
+
+.notification-toast {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.notification-toast .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--danger);
+  border-radius: 50%;
+}
+
+.badges-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.badge {
+  background: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}

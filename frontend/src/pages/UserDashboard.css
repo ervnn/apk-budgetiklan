@@ -1,0 +1,262 @@
+.user-dashboard .sidebar {
+  background: white;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-profile h4 {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.sidebar-profile span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 4px 12px 4px 4px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.user-pill img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.hero-section {
+  margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.border-accent {
+  border-left: 4px solid var(--dark-blue);
+}
+
+.trend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.trend.positive { color: var(--success); }
+
+.campaign-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.badge-aktif {
+  background: var(--success);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.performance-section {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-top: 2rem;
+}
+
+.perf-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: #e0e7ff;
+  color: var(--primary-blue);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.platforms {
+  display: flex;
+  gap: 8px;
+}
+
+.platform-tag {
+  background: white;
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.performance-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.perf-content {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.perf-chart {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+}
+
+.bar-wrapper {
+  width: 12%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar-wrapper .bar {
+  width: 100%;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.bar-wrapper .bar.active {
+  background: var(--dark-blue);
+}
+
+.perf-stats {
+  width: 320px;
+}
+
+.stat-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
+
+.stat-box .label, .perf-stats .label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.value-lg {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 1rem;
+}
+
+.value-md {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.progress-container {
+  height: 4px;
+  background: var(--light-gray);
+  border-radius: 2px;
+}
+
+.progress-container .progress {
+  height: 100%;
+  background: var(--dark-blue);
+  border-radius: 2px;
+}
+
+.activities-section {
+  margin-top: 3rem;
+}
+
+.activities-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.activity-list {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  gap: 1.5rem;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activity-icon.success { background: #d1fae5; color: var(--success); }
+.activity-icon.danger { background: #fee2e2; color: var(--danger); }
+
+.activity-details {
+  flex: 1;
+}
+
+.activity-details h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.activity-details p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.activity-time {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
