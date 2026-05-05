@@ -7,9 +7,9 @@ Muhammad Shiddiq Azis, S.T., MBA
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Frontend**: (contoh: HTML, CSS, JavaScript / React / Vue)
-- **Backend**: (contoh: Node.js / Golang / PHP / Java Spring)
-- **Database**: (contoh: MySQL / PostgreSQL / MongoDB)
+- **Frontend**: React (Vite), CSS
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL (Supabase)
 
 ---
 
@@ -71,6 +71,7 @@ Terdapat dua role utama:
 - Mengatur total budget
 - Melihat laporan keseluruhan
 - Mengelola data campaign
+- Export Laporan (PDF & CSV)
 
 ### 👤 User
 - Memilih campaign
@@ -79,3 +80,17 @@ Terdapat dua role utama:
 - Melihat laporan penggunaan anggaran
 
 ---
+
+## 🚀 Cara Menjalankan Aplikasi (Local Development)
+
+### 1. Menjalankan Backend
+1. Buka terminal dan masuk ke folder `backend`: `cd backend`
+2. Install dependensi: `npm install`
+3. Salin atau ubah `.env.example` menjadi `.env` dan pastikan kredensial Supabase sudah sesuai.
+4. Jalankan server: `npm run dev` (berjalan di port 5000)
+
+### 2. Menjalankan Frontend
+1. Buka terminal baru dan masuk ke folder `frontend`: `cd frontend`
+2. Install dependensi: `npm install`
+3. Salin atau ubah file env (jika ada) sesuai URL backend.
+4. Jalankan aplikasi: `npm run dev` (berjalan di localhost dengan port bawaan Vite/React)
