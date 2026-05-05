@@ -6,6 +6,9 @@ require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
+const reportRoutes = require('./routes/reportRoutes');
+const realisasiRoutes = require('./routes/realisasiRoutes');
+const performaRoutes = require('./routes/performaRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +31,9 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/campaigns', campaignRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/realisasi', realisasiRoutes);
+app.use('/api/performa', performaRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -63,7 +69,10 @@ app.listen(PORT, () => {
   console.log(`   Health:     http://localhost:${PORT}/api/health`);
   console.log(`   Auth:       POST http://localhost:${PORT}/api/auth/login`);
   console.log(`   Dashboard:  GET  http://localhost:${PORT}/api/dashboard/summary`);
-  console.log(`   Campaigns:  GET  http://localhost:${PORT}/api/campaigns\n`);
+  console.log(`   Campaigns:  GET  http://localhost:${PORT}/api/campaigns`);
+  console.log(`   Reports:    GET  http://localhost:${PORT}/api/reports`);
+  console.log(`   Realisasi:  POST http://localhost:${PORT}/api/realisasi`);
+  console.log(`   Performa:   POST http://localhost:${PORT}/api/performa\n`);
 });
 
 module.exports = app;
