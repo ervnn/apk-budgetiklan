@@ -101,22 +101,23 @@ export default function AdminDashboard({ navigateTo }) {
         </div>
         
         <nav className="sidebar-nav">
+          <div className="nav-section-title" style={{fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-muted)', margin: '1rem 0 0.5rem 1rem', letterSpacing: '1px'}}>MAIN MENU</div>
           <a href="#" className="nav-item active">
             <LayoutDashboard size={18} />
-            DASHBOARD
+            Dashboard
           </a>
-          <a href="#" className="nav-item">
+          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('campaign_management'); }}>
             <Megaphone size={18} />
-            CAMPAIGNS
+            Campaigns
           </a>
-          <a href="#" className="nav-item">
+          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('admin_reports'); }}>
             <FileText size={18} />
-            REPORTS
+            Reports
           </a>
         </nav>
 
         <div className="sidebar-footer">
-          <button className="btn-dark w-full mb-4">CREATE CAMPAIGN</button>
+          <button className="btn-dark w-full mb-4" onClick={() => navigateTo('campaign_create')}>CREATE CAMPAIGN</button>
           <div className="profile-widget" onClick={handleLogout}>
             <div className="avatar">
               <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=0D8ABC&color=fff`} alt={user?.nama} />

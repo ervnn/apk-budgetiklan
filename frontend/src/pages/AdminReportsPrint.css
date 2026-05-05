@@ -1,0 +1,39 @@
+
+/* Print Styles for Download PDF */
+@media print {
+  /* Sembunyikan elemen navigasi saat dicetak */
+  .sidebar, .topbar-actions, .table-actions {
+    display: none !important;
+  }
+  
+  /* Reset layout agar cocok di kertas */
+  .dashboard-layout {
+    display: block !important;
+    height: auto !important;
+    background: white !important;
+  }
+  
+  .main-content {
+    padding: 0 !important;
+    overflow-y: visible !important;
+  }
+  
+  /* Hilangkan bayangan & beri border tegas untuk kertas */
+  .chart-card, .table-section {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    break-inside: avoid;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Tumpuk grafik agar tidak terpotong */
+  .charts-row {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Pastikan warna grafik tetap muncul di print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
