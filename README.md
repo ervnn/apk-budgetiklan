@@ -6,10 +6,10 @@ Muhammad Shiddiq Azis, S.T., MBA
 ---
 
 ## 🛠️ Teknologi yang Digunakan
-
-- **Frontend**: React (Vite), CSS
-- **Backend**: Node.js, Express.js
+- **Frontend**: React (Vite), CSS Modern, Lucide Icons
+- **Backend**: Node.js, Express.js, JWT, BcryptJS
 - **Database**: PostgreSQL (Supabase)
+- **Security**: Helmet, Express-Rate-Limit
 
 ---
 
@@ -69,13 +69,14 @@ Terdapat dua role utama:
 ### 👨‍💼 Admin
 - Menambahkan campaign iklan
 - Mengatur total budget
-- Melihat laporan keseluruhan
+- Melihat laporan keseluruhan (Grafik & Tabel)
 - Mengelola data campaign
 - Export Laporan (PDF & CSV)
 
 ### 👤 User
 - Memilih campaign
 - Menginput realisasi biaya
+- Menginput performa iklan harian
 - Melihat sisa budget
 - Melihat laporan penggunaan anggaran
 
