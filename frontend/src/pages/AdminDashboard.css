@@ -335,3 +335,161 @@
   width: 12%;
   text-align: center;
 }
+
+/* Header Actions */
+.table-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Filter Dropdown Styles */
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  min-width: 180px;
+  z-index: 100;
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.filter-header {
+  padding: 8px 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-item {
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.filter-item:hover {
+  background: var(--light-gray);
+  color: var(--primary-blue);
+}
+
+.filter-item.active {
+  background: var(--light-gray);
+  color: var(--primary-blue);
+  font-weight: 700;
+}
+
+.icon-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.icon-btn-outline:hover {
+  background: var(--light-gray);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.icon-btn-outline.active {
+  background: rgba(var(--primary-blue-rgb), 0.05);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+/* Filter Modal Options */
+.filter-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.filter-option-card {
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-option-card:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.filter-option-card.active {
+  background: rgba(var(--primary-blue-rgb), 0.05);
+  border-color: var(--primary-blue);
+}
+
+.option-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.filter-option-card span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* Verified Status Pill */
+.status-pill {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.status-pill.verified {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+/* Button Text Style */
+.btn-text {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn-text:hover {
+  background: rgba(var(--primary-blue-rgb), 0.05);
+  opacity: 0.8;
+}
+
+@media print {
+  .sidebar, .topbar, .table-actions, .btn-text, .modal-overlay {
+    display: none !important;
+  }
+  .main-content {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+}

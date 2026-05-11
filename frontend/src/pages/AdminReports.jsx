@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, Bell, HelpCircle, LayoutDashboard, Megaphone, FileText, Filter, LogOut, Download } from 'lucide-react';
+import { FileText, Filter, Download, RefreshCw } from 'lucide-react';
 import api from '../services/api';
+import Sidebar from './Sidebar';
 import './AdminReports.css';
 import './AdminReportsPrint.css';
 
@@ -8,16 +9,33 @@ export default function AdminReports({ navigateTo }) {
   const [reportData, setReportData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filters, setFilters] = useState({
+    periode_awal: '',
+    periode_akhir: '',
+    platform: 'All'
+  });
   const user = api.getUser();
+
+  // Proteksi: jika bukan Admin, redirect ke selection
+  useEffect(() => {
+    if (user && user.role !== 'Admin') {
+      navigateTo('selection');
+    }
+  }, [user, navigateTo]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // Only fetch on mount
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      const result = await api.getReportData();
+      const apiFilters = {};
+      if (filters.periode_awal) apiFilters.periode_awal = filters.periode_awal;
+      if (filters.periode_akhir) apiFilters.periode_akhir = filters.periode_akhir;
+      
+      const result = await api.getReportData(apiFilters);
       setReportData(result.data);
     } catch (err) {
       setError(err.message);
@@ -51,6 +69,35 @@ export default function AdminReports({ navigateTo }) {
     return num.toLocaleString('id-ID');
   };
 
+  const exportToCSV = () => {
+    if (!detailRows || detailRows.length === 0) return;
+    
+    const headers = ['Nama Kampanye', 'Platform', 'Tanggal', 'Impressions', 'Clicks', 'Conversions', 'Revenue', 'ROAS'];
+    const csvContent = [
+      headers.join(','),
+      ...detailRows.map(row => [
+        `"${row.nama_campaign}"`,
+        row.platform,
+        row.tanggal,
+        row.impression,
+        row.click,
+        row.conversion,
+        row.revenue,
+        row.roas
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Laporan_Iklan_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (loading) {
     return (
       <div className="dashboard-layout">
@@ -65,9 +112,15 @@ export default function AdminReports({ navigateTo }) {
   }
 
   const summary = reportData?.summary || {};
-  const detailRows = reportData?.detail_rows || [];
   const platformData = reportData?.platform_data || [];
   const trenHarian = reportData?.tren_harian || [];
+
+  // Filter detail rows berdasarkan platform jika bukan 'All'
+  const detailRows = (reportData?.detail_rows || []).filter(row => 
+    filters.platform === 'All' || row.platform === filters.platform
+  );
+
+  const availablePlatforms = ['All', ...(reportData?.all_platforms || [])];
 
   // Hitung max value untuk skala line chart (Tren Revenue vs Biaya)
   const maxChartValue = trenHarian.length > 0 
@@ -98,7 +151,9 @@ export default function AdminReports({ navigateTo }) {
   const handleExportCSV = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/reports/export/csv`, {
+      // Gunakan URL dinamis dari environment
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${baseUrl}/reports/export/csv`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -134,41 +189,7 @@ export default function AdminReports({ navigateTo }) {
   return (
     <div className="dashboard-layout">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2>Executive<br/>Architect</h2>
-          <span>PREMIUM INSIGHTS</span>
-        </div>
-        
-        <nav className="sidebar-nav">
-          <div className="nav-section-title">MAIN MENU</div>
-          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('admin_dashboard'); }}>
-            <LayoutDashboard size={18} />
-            Dashboard
-          </a>
-          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('campaign_management'); }}>
-            <Megaphone size={18} />
-            Campaigns
-          </a>
-          <a href="#" className="nav-item active">
-            <FileText size={18} />
-            Reports
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <button className="btn-dark w-full mb-4" onClick={() => navigateTo('campaign_create')}>+ CREATE CAMPAIGN</button>
-          <div className="profile-widget" onClick={handleLogout}>
-            <div className="avatar">
-              <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=0D8ABC&color=fff`} alt={user?.nama} />
-            </div>
-            <div className="profile-info">
-              <h4>{user?.nama || 'Admin'}</h4>
-              <span>{user?.role || 'Admin'}</span>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar navigateTo={navigateTo} activePage="admin_reports" />
 
       {/* Main Content */}
       <main className="main-content report-content">
@@ -178,18 +199,55 @@ export default function AdminReports({ navigateTo }) {
             <span className="status-badge success"><CheckCircleIcon /> SESUAI TARGET</span>
           </div>
           <div className="topbar-actions">
-            <div className="search-bar">
-              <Search size={16} />
-              <input type="text" placeholder="Cari laporan..." />
+            <div className="user-mini-profile">
+              <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=0D8ABC&color=fff`} alt="User" />
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-dark)' }}>{user?.nama || 'Admin'}</span>
             </div>
-            <button className="icon-btn"><Bell size={20} /></button>
-            <button className="icon-btn"><HelpCircle size={20} /></button>
           </div>
         </header>
 
         {error && (
           <div className="error-alert">
             {error}
+          </div>
+        )}
+
+        {/* Filter Modal */}
+        {showFilterModal && (
+          <div className="modal-overlay" onClick={() => setShowFilterModal(false)}>
+            <div className="modal-content animate-scale-in" style={{ maxWidth: '500px' }} onClick={(e) => e.stopPropagation()}>
+               <div className="modal-header">
+                  <h2>Filter Laporan</h2>
+                  <button className="modal-close" onClick={() => setShowFilterModal(false)}>
+                    <svg width="20" height="20" viewBox="0 0 20 20"><path d="M15 5L5 15M5 5l10 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </button>
+               </div>
+               <div className="modal-body">
+                  <div className="modal-form-group">
+                     <label className="modal-label">PERIODE</label>
+                     <div className="date-inputs-row">
+                        <input 
+                           type="date" 
+                           className="modal-input"
+                           value={filters.periode_awal} 
+                           onChange={(e) => setFilters({...filters, periode_awal: e.target.value})} 
+                        />
+                        <span className="mx-2">s/d</span>
+                        <input 
+                           type="date" 
+                           className="modal-input"
+                           value={filters.periode_akhir} 
+                           onChange={(e) => setFilters({...filters, periode_akhir: e.target.value})} 
+                        />
+                     </div>
+               </div>
+            </div>
+               <div className="modal-footer">
+                  <button className="btn-save w-full" onClick={() => { fetchData(); setShowFilterModal(false); }}>
+                     TERAPKAN FILTER
+                  </button>
+               </div>
+            </div>
           </div>
         )}
 
@@ -228,7 +286,7 @@ export default function AdminReports({ navigateTo }) {
           <div className="stat-card dark-card">
             <span className="stat-label">ROAS</span>
             <div className="stat-value-group">
-              <span className="stat-value">{summary.roas}</span>
+              <span className="stat-value">{summary.roas ?? '-'}</span>
               <span className="stat-value-sub">x</span>
             </div>
             <div className="stat-badge-minimal light">
@@ -281,6 +339,7 @@ export default function AdminReports({ navigateTo }) {
             </div>
             <div className="chart-area bar-chart-area">
               <div className="bars-container">
+                {/* if data platform kosong*/}
                 {platformData.length === 0 ? (
                   <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 'auto' }}>Belum ada data platform</p>
                 ) : (
@@ -302,16 +361,21 @@ export default function AdminReports({ navigateTo }) {
         </div>
 
         {/* Table Section */}
-        <div className="table-section animate-fade-in mt-6">
+        <div className="table-section mt-8 animate-fade-in">
           <div className="table-header">
-            <h3>Tabel Detail Laporan</h3>
+            <h3>Detail Performa Kampanye</h3>
             <div className="table-actions">
-              <button className="icon-btn-outline" title="Filter"><Filter size={16} /></button>
-              <button className="icon-btn-outline" title="Export ke CSV" onClick={handleExportCSV}><FileText size={16} /></button>
-              <button className="icon-btn-outline" title="Download PDF" onClick={handleDownloadPDF}><Download size={16} /></button>
+              <button className={`icon-btn-outline ${showFilterModal ? 'active' : ''}`} onClick={() => setShowFilterModal(true)} title="Filter Data">
+                 <Filter size={18} />
+              </button>
+              <button className="icon-btn-outline" onClick={exportToCSV} title="Export CSV">
+                 <FileText size={18} />
+              </button>
+              <button className="icon-btn-outline" onClick={() => window.print()} title="Download PDF (Print)">
+                 <Download size={18} />
+              </button>
             </div>
           </div>
-
           <div className="table-responsive">
             <table className="reports-table">
               <thead>
@@ -328,7 +392,7 @@ export default function AdminReports({ navigateTo }) {
               <tbody>
                 {detailRows.length === 0 ? (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
+                    <td colSpan="9" style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
                       Belum ada data laporan
                     </td>
                   </tr>

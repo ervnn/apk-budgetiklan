@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Search, Bell, HelpCircle, Grid, CreditCard, TrendingUp, AlertTriangle, Wallet, LogOut } from 'lucide-react';
+import { AlertTriangle, Wallet } from 'lucide-react';
 import api from '../services/api';
+import Sidebar from './Sidebar';
 import './UserDashboard.css';
 
 export default function UserDashboard({ navigateTo }) {
@@ -64,50 +65,16 @@ export default function UserDashboard({ navigateTo }) {
   return (
     <div className="dashboard-layout user-dashboard">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2>Executive<br/>Architect</h2>
-        </div>
-        
-        <div className="sidebar-profile">
-          <div className="avatar">
-            <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Staff')}&background=1E2954&color=fff`} alt="User" />
-          </div>
-          <div>
-            <h4>{user?.nama || 'Staff'}</h4>
-            <span>{user?.role || 'Staff'}</span>
-          </div>
-        </div>
-
-        <nav className="sidebar-nav">
-          <a href="#" className="nav-item active">
-            <Grid size={18} />
-            Beranda
-          </a>
-          <a href="#" className="nav-item">
-            <CreditCard size={18} />
-            Catat Biaya
-          </a>
-          <a href="#" className="nav-item">
-            <TrendingUp size={18} />
-            Performa
-          </a>
-        </nav>
-      </aside>
+      <Sidebar navigateTo={navigateTo} activePage="user_dashboard" />
 
       {/* Main Content */}
       <main className="main-content">
         <header className="topbar">
-          <div className="search-bar" style={{ background: '#f1f5f9', border: 'none' }}>
-            <Search size={16} />
-            <input type="text" placeholder="Cari kampanye atau data..." />
-          </div>
+          <h1 className="page-title">Beranda Staff</h1>
           <div className="topbar-actions">
-            <button className="icon-btn"><Bell size={20} color="#64748b" /></button>
-            <button className="icon-btn" onClick={handleLogout} title="Logout"><LogOut size={20} color="#64748b" /></button>
-            <div className="user-pill" onClick={handleLogout}>
+            <div className="user-mini-profile">
               <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Staff')}&background=F59E0B&color=fff`} alt="User" />
-              <span>{user?.nama || 'Staff'}</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-dark)' }}>{user?.nama || 'Staff'}</span>
             </div>
           </div>
         </header>

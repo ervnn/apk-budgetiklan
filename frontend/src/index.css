@@ -52,6 +52,13 @@ input {
 .w-full { width: 100%; }
 .h-screen { height: 100vh; }
 .text-center { text-align: center; }
+.text-dark { color: var(--text-dark); }
+.text-muted { color: var(--text-muted); }
+.text-xs { font-size: 0.75rem; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.relative { position: relative; }
 
 /* Page Wrappers */
 .page-wrapper {
@@ -214,6 +221,44 @@ input {
 /* Misc Utilities */
 .mt-2 { margin-top: 0.5rem; }
 .mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
 .mt-8 { margin-top: 2rem; }
 .mb-4 { margin-bottom: 1rem; }
 .gap-4 { gap: 1rem; }
+
+/* User Mini Profile (topbar) */
+.user-mini-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-mini-profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease forwards;
+}

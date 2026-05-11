@@ -8,9 +8,23 @@ import UserDashboard from './pages/UserDashboard';
 import CampaignManagement from './pages/CampaignManagement';
 import CampaignCreate from './pages/CampaignCreate';
 import AdminReports from './pages/AdminReports';
+import PerformanceInput from './pages/PerformanceInput';
+import ExpenseInput from './pages/ExpenseInput';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('selection');
+  const [currentPage, setCurrentPage] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    if (savedUser && token) {
+      try {
+        const user = JSON.parse(savedUser);
+        return user.role === 'Admin' ? 'admin_dashboard' : 'user_dashboard';
+      } catch (e) {
+        return 'selection';
+      }
+    }
+    return 'selection';
+  });
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -26,6 +40,8 @@ function App() {
       {currentPage === 'campaign_management' && <CampaignManagement navigateTo={navigateTo} />}
       {currentPage === 'campaign_create' && <CampaignCreate navigateTo={navigateTo} />}
       {currentPage === 'admin_reports' && <AdminReports navigateTo={navigateTo} />}
+      {currentPage === 'performance_input' && <PerformanceInput navigateTo={navigateTo} />}
+      {currentPage === 'expense_input' && <ExpenseInput navigateTo={navigateTo} />}
     </>
   );
 }

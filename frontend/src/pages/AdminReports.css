@@ -1,5 +1,12 @@
 /* AdminReports.css */
 
+.stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 1rem;
+}
+
 .report-content {
   background-color: #fafbfc;
 }
@@ -68,17 +75,18 @@
   color: #10b981;
 }
 
-.dark-card {
-  background-color: var(--dark-blue);
+.stat-card.dark-card {
+  background-color: var(--dark-blue) !important;
   color: white;
+  border-color: var(--dark-blue);
 }
 
-.dark-card .stat-label {
+.stat-card.dark-card .stat-label {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.dark-card .stat-value,
-.dark-card .stat-value-sub {
+.stat-card.dark-card .stat-value,
+.stat-card.dark-card .stat-value-sub {
   color: white;
 }
 
@@ -303,4 +311,189 @@
   color: var(--text-muted);
   margin: 1rem 0 0.5rem 1rem;
   letter-spacing: 1px;
+}
+
+/* Header Actions */
+.flex.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.icon-btn-outline:hover {
+  background: var(--light-gray);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.icon-btn-outline.active {
+  background: rgba(var(--primary-blue-rgb), 0.05);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+/* Date Inputs Row in Modal */
+.date-inputs-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+@media print {
+  .sidebar, .topbar, .flex.justify-end, .btn-text, .modal-overlay {
+    display: none !important;
+  }
+  .main-content {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  .chart-card {
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+  }
+}
+
+/* Report Toolbar */
+.report-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  border: 1px solid var(--border-color);
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.date-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-inputs input {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--text-dark);
+}
+
+.date-inputs span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.toolbar-select {
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: white;
+  min-width: 140px;
+}
+
+.toolbar-right {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-export {
+  background: var(--dark-blue);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-export:hover {
+  background: #2c3882;
+  transform: translateY(-1px);
+}
+
+.btn-refresh-icon {
+  background: white;
+  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-refresh-icon:hover {
+  background: var(--light-gray);
+  color: var(--dark-blue);
+}
+
+@media print {
+  .sidebar, .topbar, .report-toolbar, .btn-text {
+    display: none !important;
+  }
+  .main-content {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  .chart-card {
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+  }
 }

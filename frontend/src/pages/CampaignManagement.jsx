@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Search, Bell, HelpCircle, LayoutDashboard, Megaphone, FileText, Plus, Pencil, Trash2, X, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import { Search, Plus, Pencil, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import api from '../services/api';
+import Sidebar from './Sidebar';
 import './CampaignManagement.css';
 
 export default function CampaignManagement({ navigateTo }) {
@@ -13,6 +14,8 @@ export default function CampaignManagement({ navigateTo }) {
   const [notification, setNotification] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // Missing state variables restored
   const [editingCampaign, setEditingCampaign] = useState(null);
   const [deletingCampaign, setDeletingCampaign] = useState(null);
   const [editForm, setEditForm] = useState({
@@ -24,13 +27,16 @@ export default function CampaignManagement({ navigateTo }) {
     status: 'Active'
   });
   const [submitting, setSubmitting] = useState(false);
-
-  const user = api.getUser();
   const itemsPerPage = 5;
 
+  const user = api.getUser();
+
+  // Proteksi: jika bukan Admin, redirect ke selection
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (user && user.role !== 'Admin') {
+      navigateTo('selection');
+    }
+  }, [user, navigateTo]);
 
   // Auto-hide notification after 3s
   useEffect(() => {
@@ -39,6 +45,10 @@ export default function CampaignManagement({ navigateTo }) {
       return () => clearTimeout(timer);
     }
   }, [notification]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -251,43 +261,7 @@ export default function CampaignManagement({ navigateTo }) {
       )}
 
       {/* ============ SIDEBAR ============ */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2>Executive<br />Architect</h2>
-          <span>PREMIUM INSIGHTS</span>
-        </div>
-
-        <nav className="sidebar-nav">
-          <div className="nav-section-title" style={{fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-muted)', margin: '1rem 0 0.5rem 1rem', letterSpacing: '1px'}}>MAIN MENU</div>
-          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('admin_dashboard'); }}>
-            <LayoutDashboard size={18} />
-            Dashboard
-          </a>
-          <a href="#" className="nav-item active">
-            <Megaphone size={18} />
-            Campaigns
-          </a>
-          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('admin_reports'); }}>
-            <FileText size={18} />
-            Reports
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <button className="btn-dark w-full mb-4" onClick={() => navigateTo('campaign_create')}>
-            CREATE CAMPAIGN
-          </button>
-          <div className="profile-widget" onClick={handleLogout}>
-            <div className="avatar">
-              <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=0D8ABC&color=fff`} alt={user?.nama} />
-            </div>
-            <div className="profile-info">
-              <h4>{user?.nama || 'Executive Architect'}</h4>
-              <span>Premium Insights</span>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar navigateTo={navigateTo} activePage="campaign_management" />
 
       {/* ============ MAIN CONTENT ============ */}
       <main className="main-content">
@@ -303,10 +277,9 @@ export default function CampaignManagement({ navigateTo }) {
             />
           </div>
           <div className="topbar-actions">
-            <button className="icon-btn"><Bell size={20} /></button>
-            <button className="icon-btn"><HelpCircle size={20} /></button>
-            <div className="topbar-avatar">
+            <div className="user-mini-profile">
               <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=1E2954&color=fff&size=32`} alt="User" />
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-dark)' }}>{user?.nama || 'Admin'}</span>
             </div>
           </div>
         </header>
@@ -328,7 +301,7 @@ export default function CampaignManagement({ navigateTo }) {
           <div className="cm-stat-card">
             <span className="cm-stat-label">TOTAL ANGGARAN</span>
             <div className="cm-stat-value">{formatRupiah(summary?.total_budget)}</div>
-            <div className="cm-stat-badge positive">+12% Bulan Ini</div>
+            <div className="cm-stat-badge positive">Sisa: {formatRupiah(summary?.sisa_budget)}</div>
           </div>
           <div className="cm-stat-card">
             <span className="cm-stat-label">TOTAL KAMPANYE</span>

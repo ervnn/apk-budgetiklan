@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import { Search, Bell, HelpCircle, LayoutDashboard, Megaphone, FileText, Lightbulb, CheckCircle2, ArrowRight, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Lightbulb, CheckCircle2, ArrowRight, X, AlertCircle } from 'lucide-react';
 import api from '../services/api';
+import Sidebar from './Sidebar';
 import './CampaignCreate.css';
 
 export default function CampaignCreate({ navigateTo }) {
   const user = api.getUser();
   const [notification, setNotification] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [form, setForm] = useState({
     nama_campaign: '',
     platform: '',
@@ -15,13 +17,20 @@ export default function CampaignCreate({ navigateTo }) {
     tanggal_selesai: ''
   });
 
+  // Proteksi: jika bukan Admin, redirect ke selection
+  useEffect(() => {
+    if (user && user.role !== 'Admin') {
+      navigateTo('selection');
+    }
+  }, [user, navigateTo]);
+
   // Auto-hide notification
   const showNotif = (type, message) => {
     setNotification({ type, message });
     setTimeout(() => setNotification(null), 3500);
   };
 
-  const handleSubmit = async (e) => {
+  const handlePreSubmit = (e) => {
     e.preventDefault();
 
     // Validations
@@ -35,6 +44,11 @@ export default function CampaignCreate({ navigateTo }) {
       return;
     }
 
+    setShowConfirm(true);
+  };
+
+  const handleSubmit = async () => {
+    setShowConfirm(false);
     try {
       setSubmitting(true);
       await api.createCampaign({
@@ -79,13 +93,56 @@ export default function CampaignCreate({ navigateTo }) {
     return num;
   };
 
-  const handleLogout = () => {
-    api.logout();
-    navigateTo('selection');
+  const formatRupiah = (num) => {
+    if (!num) return 'Rp 0';
+    return 'Rp ' + parseInt(num).toLocaleString('id-ID');
   };
 
   return (
     <div className="dashboard-layout">
+      {/* ============ CONFIRM MODAL ============ */}
+      {showConfirm && (
+        <div className="modal-overlay" onClick={() => setShowConfirm(false)}>
+          <div className="confirm-modal animate-scale-in" onClick={(e) => e.stopPropagation()} style={{
+            background: 'white', borderRadius: '16px', padding: '2rem',
+            maxWidth: '420px', width: '90%', textAlign: 'center',
+            boxShadow: '0 25px 60px rgba(0,0,0,0.15)'
+          }}>
+            <div style={{
+              width: '64px', height: '64px', borderRadius: '50%',
+              background: '#dbeafe', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', margin: '0 auto 1rem'
+            }}>
+              <AlertCircle size={28} color="var(--primary-blue)" />
+            </div>
+            <h3 style={{ fontSize: '1.15rem', color: 'var(--dark-blue)', marginBottom: '0.5rem' }}>
+              Konfirmasi Simpan Kampanye
+            </h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+              Apakah data berikut sudah benar?
+            </p>
+            <div style={{ textAlign: 'left', background: '#f8fafc', borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
+              <div><strong>Nama:</strong> {form.nama_campaign}</div>
+              <div><strong>Platform:</strong> {form.platform}</div>
+              <div><strong>Budget:</strong> {formatRupiah(form.total_budget)}</div>
+              <div><strong>Periode:</strong> {form.tanggal_mulai} s/d {form.tanggal_selesai}</div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+              <button onClick={() => setShowConfirm(false)} style={{
+                padding: '10px 24px', borderRadius: '8px', fontWeight: 600,
+                fontSize: '0.85rem', background: 'var(--light-gray)',
+                color: 'var(--text-dark)', border: 'none', cursor: 'pointer'
+              }}>BATAL</button>
+              <button onClick={handleSubmit} style={{
+                padding: '10px 24px', borderRadius: '8px', fontWeight: 600,
+                fontSize: '0.85rem', background: 'var(--primary-blue)',
+                color: 'white', border: 'none', cursor: 'pointer'
+              }}>YA, SIMPAN</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ============ NOTIFICATION ============ */}
       {notification && (
         <div className={`toast-notification ${notification.type} animate-toast-in`} key={Date.now()}>
@@ -113,39 +170,7 @@ export default function CampaignCreate({ navigateTo }) {
       )}
 
       {/* ============ SIDEBAR ============ */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2>Executive<br />Architect</h2>
-          <span>PREMIUM INSIGHTS</span>
-        </div>
-
-        <nav className="sidebar-nav">
-          <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); navigateTo('admin_dashboard'); }}>
-            <LayoutDashboard size={18} />
-            DASHBOARD
-          </a>
-          <a href="#" className="nav-item active">
-            <Megaphone size={18} />
-            CAMPAIGNS
-          </a>
-          <a href="#" className="nav-item">
-            <FileText size={18} />
-            REPORTS
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="profile-widget" onClick={handleLogout}>
-            <div className="avatar">
-              <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'Admin')}&background=0D8ABC&color=fff`} alt={user?.nama} />
-            </div>
-            <div className="profile-info">
-              <h4>{user?.nama || 'Executive Architect'}</h4>
-              <span>ADMIN PREMIUM</span>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <Sidebar navigateTo={navigateTo} activePage="campaign_create" />
 
       {/* ============ MAIN CONTENT ============ */}
       <main className="main-content">
@@ -154,14 +179,6 @@ export default function CampaignCreate({ navigateTo }) {
           <h1 className="page-title" style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--dark-blue)' }}>
             Tambah Kampanye Baru
           </h1>
-          <div className="topbar-actions">
-            <div className="search-bar" style={{ width: '200px' }}>
-              <Search size={16} />
-              <input type="text" placeholder="Cari data..." />
-            </div>
-            <button className="icon-btn"><Bell size={20} /></button>
-            <button className="icon-btn"><HelpCircle size={20} /></button>
-          </div>
         </header>
 
         <div className="cc-layout animate-fade-in">
@@ -171,7 +188,7 @@ export default function CampaignCreate({ navigateTo }) {
               <h2 className="cc-form-title">Detail Kampanye</h2>
               <p className="cc-form-subtitle">Rancang narasi pemasaran Anda dengan presisi institusional.</p>
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handlePreSubmit}>
                 <div className="cc-form-group">
                   <label className="cc-label">NAMA KAMPANYE</label>
                   <input
