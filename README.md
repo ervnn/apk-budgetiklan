@@ -5,6 +5,14 @@ Muhammad Shiddiq Azis, S.T., MBA
 
 ---
 
+## 👥 Kelompok 12
+- **Ervin Setyanata Kusuma** - 103012430007
+- **Tristan Amar Fauzan** - [1030124300512] 
+- **Nelson Arbet** - [103012400250]
+
+
+---
+
 ## 🛠️ Teknologi yang Digunakan
 - **Frontend**: React (Vite), CSS Modern, Lucide Icons
 - **Backend**: Node.js, Express.js, JWT, BcryptJS
@@ -25,10 +33,17 @@ Terdapat dua role utama:
 # 📊 Data Flow Diagram (DFD)
 
 ## 🔹 DFD Level 0
-![DFD Level 0](./assets/dfdlvl0.png)
+![DFD Level 0](./assets/dfdlvl0.jpg)
 
 ## 🔹 DFD Level 1
-![DFD Level 1](./assets/dfdlvl1.png)
+![DFD Level 1](./assets/dfdlvl1.jpg)
+
+## 🔹 ERD (Database)
+![ERD](./assets/erd.jpg)
+
+## 🔹 Sequence Diagram
+[Buka Folder Sequence Diagram](./assets/sequence_diagram)
+
 
 ---
 
@@ -95,3 +110,11 @@ Terdapat dua role utama:
 2. Install dependensi: `npm install`
 3. Salin atau ubah file env (jika ada) sesuai URL backend.
 4. Jalankan aplikasi: `npm run dev` (berjalan di localhost dengan port bawaan Vite/React)
+
+---
+
+## 🔗 Link Eksternal & Progres
+- **URL Postman Collection**: [Postman Link](https://www.postman.com/science-observer-47017782/impal/collection/odter3v/budgeting-apps)
+- **URL Demo Aplikasi**: [In Progress]
+- **User Manual**: [In Progress]
+
