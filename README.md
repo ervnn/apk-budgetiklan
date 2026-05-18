@@ -6,8 +6,8 @@ Muhammad Shiddiq Azis, S.T., MBA
 ---
 
 ## 👥 Kelompok 12
-- **Ervin Setyanata Kusuma** - 103012430007
-- **Tristan Amar Fauzan** - [1030124300512] 
+- **Ervin Setyanata Kusuma** - [103012430007]
+- **Tristan Amar Fauzan** - [1030124300512]
 - **Nelson Arbet** - [103012400250]
 
 
@@ -26,7 +26,7 @@ Muhammad Shiddiq Azis, S.T., MBA
 Aplikasi ini digunakan untuk membantu pengguna dalam mengelola anggaran iklan digital secara terstruktur.  
 Terdapat dua role utama:
 - **Admin** → mengelola campaign dan anggaran
-- **User** → mencatat realisasi biaya iklan
+- **User** → mencatat realisasi biaya iklan dan performa iklan harian
 
 ---
 
@@ -50,7 +50,7 @@ Terdapat dua role utama:
 # 🔐 Tampilan Sistem (Admin)
 
 ## 🔹 Login Page
-![Login](./assets/Login.png)
+![Login Admin](./assets/Login-admin.png)
 
 ## 🔹 Admin Dashboard
 ![Admin Dashboard](./assets/admin-dashboard.png)
@@ -68,14 +68,16 @@ Terdapat dua role utama:
 
 # 👤 Tampilan Sistem (User)
 
+![Login User](./assets/Login-user.png)
+
 ## 🔹 Dashboard User
 ![Dashboard User](./assets/dashboard-user.png)
 
 ## 🔹 Input Anggaran / Realisasi Biaya
 ![Input Anggaran](./assets/input-anggaran.png)
 
-## 🔹 Laporan User
-![Laporan User](./assets/laporan-user.png)
+## 🔹 Input Performa Iklan Harian
+![Input Performa](./assets/input-performa.png)
 
 ---
 
@@ -92,8 +94,7 @@ Terdapat dua role utama:
 - Memilih campaign
 - Menginput realisasi biaya
 - Menginput performa iklan harian
-- Melihat sisa budget
-- Melihat laporan penggunaan anggaran
+- Melihat laporan dashboard user
 
 ---
 
@@ -115,6 +116,17 @@ Terdapat dua role utama:
 
 ## 🔗 Link Eksternal & Progres
 - **URL Postman Collection**: [Postman Link](https://www.postman.com/science-observer-47017782/impal/collection/odter3v/budgeting-apps)
-- **URL Demo Aplikasi**: [In Progress]
+
+---
+
+- **URL Demo Aplikasi**: [https://frontend-production-3768.up.railway.app]
+account admin : [admin@gmail.com]
+password : admin123
+
+account user : [staff@gmail.com]
+password : staff123
+
+---
+
 - **User Manual**: [In Progress]
 
