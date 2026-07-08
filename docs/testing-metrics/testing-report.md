@@ -143,7 +143,7 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 ---
 
-## Langkah 5 – Analisis
+## Analisis
 
 ### Fitur Mana yang Paling Banyak Gagal?
 
