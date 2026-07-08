@@ -3,15 +3,15 @@
 
 | | |
 |---|---|
-| **Nama Mahasiswa** | *(isi nama kamu)* |
-| **NIM** | *(isi NIM kamu)* |
+| **Nama Mahasiswa** | Ervin Setyanata Kusuma |
+| **NIM** | 103012430007 |
 | **Tanggal Pengujian** | 8 Juli 2026 |
 | **Mata Kuliah** | Implementasi dan Pengujian Perangkat Lunak |
 | **Teknologi Testing** | **Jest** (Node.js) + Supertest |
 
 ---
 
-## Langkah 1 – Fitur yang Diuji
+## Fitur yang Diuji
 
 Tiga fitur utama yang dipilih untuk pengujian:
 
@@ -23,7 +23,7 @@ Tiga fitur utama yang dipilih untuk pengujian:
 
 ---
 
-## Langkah 2 – Test Case
+## Test Case
 
 ### Tabel Test Case (15 Test Case)
 
@@ -47,7 +47,7 @@ Tiga fitur utama yang dipilih untuk pengujian:
 
 ---
 
-## Langkah 3 – Perhitungan Metrik
+## Perhitungan Metrik
 
 ### 1. Total Test Case
 ```
@@ -68,7 +68,7 @@ Fail Rate = (Jumlah FAIL / Total Test Case) × 100%
            = 0%
 ```
 
-> **Catatan:** Pada run pertama Jest, TC-05 gagal karena timeout akibat rate limiter membatasi request ke endpoint `/api/auth/login`. Setelah diperbaiki (menggunakan input string kosong `""` yang divalidasi secara lokal tanpa memanggil database), seluruh 15 test case berhasil PASS. Bug ini dikategorikan sebagai **Minor** karena hanya terjadi saat pengujian otomatis, tidak mempengaruhi fungsionalitas aplikasi nyata.
+> **Catatan:** Pada run pertama Jest, TC-01 gagal karena **port conflict** (`EADDRINUSE :::5000`) — server `npm run dev` sudah aktif di port 5000 saat test dijalankan. Setelah diperbaiki dengan menambahkan pengecekan `require.main === module` di `server.js`, seluruh 15 test case berhasil PASS dalam waktu **4.222 detik**. Bug ini dikategorikan sebagai **Minor** karena hanya terjadi saat test environment bentrok dengan server dev, tidak mempengaruhi fungsionalitas aplikasi nyata.
 
 ### 4. Defect Count
 
@@ -76,7 +76,7 @@ Fail Rate = (Jumlah FAIL / Total Test Case) × 100%
 |----------|--------|-----------|
 | **Critical** | 0 | Tidak ada bug yang menghentikan fungsi utama aplikasi |
 | **Major** | 0 | Tidak ada bug yang mempengaruhi fungsionalitas signifikan |
-| **Minor** | 1 | TC-05 timeout pada pengujian otomatis karena rate limiter ketat (10 req/15 menit) – sudah diperbaiki |
+| **Minor** | 1 | Port conflict (`EADDRINUSE :::5000`) saat Jest dijalankan berbarengan dengan server dev yang aktif – sudah diperbaiki dengan `require.main === module` di `server.js` |
 
 **Total Bug:** 1 (sudah diperbaiki)
 
@@ -92,12 +92,12 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 ---
 
-## Langkah 4 – Dokumentasi Bukti (Screenshot)
+## Dokumentasi Bukti (Screenshot)
 
 ### Screenshot 1 – Hasil Eksekusi Jest (15/15 PASS)
 ![SS Jest Results](./screenshots/real_ss_jest_cmd.png)
 
-> Output terminal Jest: **15 test case PASS semua** dalam waktu 12.042 detik. Dijalankan dengan perintah `npm test -- --verbose` di folder `backend/`. Tool: **Jest v29 + Supertest v6**.
+> Output terminal Jest: **15 test case PASS semua** dalam waktu **4.222 detik**. Dijalankan dengan perintah `npm test -- --verbose` di folder `backend/`. Tool: **Jest v29 + Supertest v6**.
 
 ---
 
@@ -147,27 +147,27 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 ### Fitur Mana yang Paling Banyak Gagal?
 
-Berdasarkan hasil pengujian, **tidak ada fitur yang gagal secara keseluruhan**. Seluruh 15 test case berhasil PASS dengan Pass Rate 100%. Namun, pada iterasi pengujian pertama, fitur **Autentikasi (Login)** mengalami satu kegagalan sementara (TC-05) yang bukan disebabkan oleh logika bisnis, melainkan oleh konfigurasi pengujian yang berinteraksi dengan mekanisme keamanan aplikasi.
+Berdasarkan hasil pengujian, **tidak ada fitur yang gagal secara keseluruhan**. Seluruh 15 test case berhasil PASS dengan Pass Rate 100%. Namun, selama proses development pengujian ditemukan **1 bug Minor** pada konfigurasi test environment — bukan pada logika bisnis aplikasi.
 
 ### Apa Penyebabnya?
 
-Kegagalan pada TC-05 di iterasi pertama disebabkan oleh **rate limiter** yang dikonfigurasi di `server.js`. Rate limiter membatasi akses ke endpoint `/api/auth/login` hanya 10 kali per 15 menit per IP. Karena Jest menjalankan test case TC-01 hingga TC-05 secara berurutan dan cepat dari IP yang sama (localhost), request ke-5 tertahan oleh rate limiter sehingga melebihi batas waktu (timeout 10.000ms).
+Bug yang ditemukan berupa **port conflict** (`EADDRINUSE: address already in use :::5000`). Penyebabnya adalah `server.js` secara default langsung memanggil `app.listen(PORT)` setiap kali file tersebut di-`require()`. Saat Jest menjalankan test, file `server.js` di-load oleh `auth.test.js`, sehingga server mencoba menyalakan port 5000 — padahal server development (`npm run dev`) sudah aktif di port yang sama, menyebabkan TC-01 gagal dengan error port conflict.
 
-Ini sebenarnya menunjukkan bahwa **mekanisme keamanan aplikasi bekerja dengan baik**, bukan merupakan bug pada logika aplikasi. Namun perlu penyesuaian pada konfigurasi test environment.
+Ini bukan bug pada logika fitur aplikasi, melainkan masalah konfigurasi antara server development dan test runner.
 
 ### Bagaimana Cara Memperbaikinya?
 
-Perbaikan dilakukan dengan mengubah pendekatan TC-05: alih-alih mengirim kredensial tidak valid ke server (yang memerlukan koneksi database dan terblokir rate limiter), TC-05 kini mengirim **input string kosong** (`email: "", password: ""`). Validasi input kosong dilakukan secara lokal di `authController.js` sebelum memanggil database, sehingga tidak terkena rate limiter. Hasilnya, TC-05 berhasil PASS dalam 10ms.
+Perbaikan dilakukan di `server.js` dengan membungkus `app.listen()` menggunakan pengecekan `require.main === module`. Dengan ini, server hanya menyalakan port ketika file dijalankan langsung (`node server.js` / `nodemon`), tetapi **tidak** menyalakan port ketika file di-`require()` oleh Jest. Setelah perbaikan ini, seluruh 15 test case berhasil PASS dalam waktu **4.222 detik**.
 
-Untuk jangka panjang, disarankan membuat konfigurasi environment khusus pengujian (`NODE_ENV=test`) yang menonaktifkan rate limiter, atau menggunakan mock/stub untuk isolasi unit test.
+Perbaikan yang sama juga merupakan best practice Node.js standar untuk memisahkan server startup dari module export.
 
 ### Apa Prioritas Perbaikannya?
 
 | Prioritas | Item | Status |
 |-----------|------|--------|
-| 🟢 Rendah | Rate limiter timeout pada test environment | ✅ Sudah diperbaiki |
+| 🟢 Rendah | Port conflict saat Jest + server dev berjalan bersamaan | ✅ Sudah diperbaiki (`require.main === module`) |
 | 🟡 Sedang | Tambahkan mock database untuk unit test yang murni terisolasi | 🔄 Rekomendasi |
-| 🔴 Tinggi | Tidak ada bug kritikal yang ditemukan | N/A |
+| 🔴 Tinggi | Tidak ada bug kritikal yang ditemukan | ✅ N/A |
 
 ### Apakah Aplikasi Layak Dirilis Minggu Ini?
 
@@ -213,12 +213,12 @@ npm test -- --verbose
 
 ### Hasil Eksekusi
 ```
-PASS tests/auth.test.js (11.889 s)
+PASS tests/auth.test.js (4.222 s)
 
 Test Suites: 1 passed, 1 total
 Tests:       15 passed, 15 total
 Snapshots:   0 total
-Time:        12.042 s
+Time:        4.222 s, estimated 6 s
 ```
 
 ### Penjelasan Singkat

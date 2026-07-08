@@ -16,6 +16,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Enable trust proxy untuk deployment (misal Railway/Render) agar client IP terdeteksi dengan benar oleh rate limiter
+app.set('trust proxy', 1);
+
 // ==================== SECURITY MIDDLEWARE ====================
 // Helmet untuk security HTTP headers
 app.use(helmet());
@@ -23,10 +26,12 @@ app.use(helmet());
 // Disable X-Powered-By agar hacker tidak tahu kita pakai Express
 app.disable('x-powered-by');
 
-// Rate Limiting untuk mencegah Brute Force
+// Rate Limiting untuk mencegah Brute Force dan DDoS
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 menit
   max: 10, // Maksimal 10 percobaan per 15 menit per IP
+  standardHeaders: true, // Mengembalikan info limit di header `RateLimit-*`
+  legacyHeaders: false, // Menonaktifkan header `X-RateLimit-*` (deprecated)
   message: {
     success: false,
     message: 'Terlalu banyak percobaan login, silakan coba lagi dalam 15 menit'
@@ -36,6 +41,8 @@ const loginLimiter = rateLimit({
 const apiLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 menit
   max: 60, // Maksimal 60 request per menit
+  standardHeaders: true, // Mengembalikan info limit di header `RateLimit-*`
+  legacyHeaders: false, // Menonaktifkan header `X-RateLimit-*` (deprecated)
   message: {
     success: false,
     message: 'Terlalu banyak request, silakan tunggu sebentar'
@@ -92,16 +99,18 @@ app.use((err, req, res, next) => {
 });
 
 // ==================== START SERVER ====================
-app.listen(PORT, () => {
-  console.log(`\n🚀 Budget Iklan API Server`);
-  console.log(`   Running on: http://localhost:${PORT}`);
-  console.log(`   Health:     http://localhost:${PORT}/api/health`);
-  console.log(`   Auth:       POST http://localhost:${PORT}/api/auth/login`);
-  console.log(`   Dashboard:  GET  http://localhost:${PORT}/api/dashboard/summary`);
-  console.log(`   Campaigns:  GET  http://localhost:${PORT}/api/campaigns`);
-  console.log(`   Reports:    GET  http://localhost:${PORT}/api/reports`);
-  console.log(`   Realisasi:  POST http://localhost:${PORT}/api/realisasi`);
-  console.log(`   Performa:   POST http://localhost:${PORT}/api/performa\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Budget Iklan API Server`);
+    console.log(`   Running on: http://localhost:${PORT}`);
+    console.log(`   Health:     http://localhost:${PORT}/api/health`);
+    console.log(`   Auth:       POST http://localhost:${PORT}/api/auth/login`);
+    console.log(`   Dashboard:  GET  http://localhost:${PORT}/api/dashboard/summary`);
+    console.log(`   Campaigns:  GET  http://localhost:${PORT}/api/campaigns`);
+    console.log(`   Reports:    GET  http://localhost:${PORT}/api/reports`);
+    console.log(`   Realisasi:  POST http://localhost:${PORT}/api/realisasi`);
+    console.log(`   Performa:   POST http://localhost:${PORT}/api/performa\n`);
+  });
+}
 
 module.exports = app;
