@@ -3,8 +3,8 @@
 
 | | |
 |---|---|
-| **Nama Mahasiswa** | *(Nama Anda)* |
-| **NIM** | *(NIM Anda)* |
+| **Nama Mahasiswa** | *(isi nama kamu)* |
+| **NIM** | *(isi NIM kamu)* |
 | **Tanggal Pengujian** | 8 Juli 2026 |
 | **Mata Kuliah** | Implementasi dan Pengujian Perangkat Lunak |
 | **Teknologi Testing** | **Jest** (Node.js) + Supertest |
@@ -94,38 +94,52 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 ## Langkah 4 – Dokumentasi Bukti (Screenshot)
 
-### Screenshot 1 – Hasil Eksekusi Jest (Semua Test Pass)
-![SS1 - Jest Test Results](./screenshots/ss1_jest_test_results.png)
+### Screenshot 1 – Hasil Eksekusi Jest (15/15 PASS)
+![SS Jest Results](./screenshots/real_ss_jest_cmd.png)
 
-> Menampilkan output terminal Jest dengan 15 test case yang semuanya PASS (✓) dalam waktu 11.889 detik.
-
----
-
-### Screenshot 2 – Halaman Login Aplikasi
-![SS2 - Halaman Login](./screenshots/ss2_login_page.png)
-
-> Halaman login Sistem Pengelolaan Anggaran Iklan Digital. Terdapat form email dan password yang divalidasi di backend (TC-01 s/d TC-05).
+> Output terminal Jest: **15 test case PASS semua** dalam waktu 12.042 detik. Dijalankan dengan perintah `npm test -- --verbose` di folder `backend/`. Tool: **Jest v29 + Supertest v6**.
 
 ---
 
-### Screenshot 3 – Dashboard Utama (User)
-![SS3 - Dashboard](./screenshots/ss3_dashboard.png)
+### Screenshot 2 – Halaman Seleksi / Landing Page
+![SS Seleksi](./screenshots/real_ss1_selection.png)
 
-> Dashboard user menampilkan ringkasan: sisa anggaran, total realisasi, dan daftar kampanye aktif. Endpoint `/api/dashboard/summary` diproteksi JWT (TC-14).
-
----
-
-### Screenshot 4 – Halaman Manajemen Campaign
-![SS4 - Campaign Management](./screenshots/ss4_campaign_management.png)
-
-> Halaman CRUD campaign dengan tabel data, tombol tambah, edit, dan hapus. Seluruh endpoint campaign memerlukan token autentikasi (TC-06 s/d TC-10).
+> Halaman utama aplikasi **AdBudget Manager** menampilkan dua pilihan: Portal Admin (Manajemen Perusahaan) dan Ruang Kerja Pengguna (Operasi Kampanye).
 
 ---
 
-### Screenshot 5 – Halaman Laporan Admin
-![SS5 - Reports Page](./screenshots/ss5_reports_page.png)
+### Screenshot 3 – Halaman Login Admin
+![SS Login Admin](./screenshots/real_ss2_admin_login.png)
 
-> Halaman laporan admin dengan filter kampanye, ringkasan anggaran, tabel realisasi, dan fitur Export PDF menggunakan library PDFKit.
+> Form login Admin dengan field Email dan Kata Sandi. Diproteksi **rate limiter** (10 request/15 menit) untuk mencegah brute force — diuji pada TC-01 s/d TC-05.
+
+---
+
+### Screenshot 4 – Dashboard Admin (Dasbor Anggaran)
+![SS Dashboard](./screenshots/real_ss3_dashboard.png)
+
+> Dashboard Admin: Total Anggaran **Rp 3.400.121**, Total Realisasi Rp 2.700.121 (79%), Total Revenue Rp 3.383.500, dan daftar kampanye aktif. Endpoint diproteksi JWT (TC-14).
+
+---
+
+### Screenshot 5 – Halaman Manajemen Kampanye (CRUD)
+![SS Campaign](./screenshots/real_ss4_campaign.png)
+
+> Halaman Manajemen Kampanye: tabel data dengan kolom Nama, ID, Platform, Durasi, Anggaran, dan tombol Aksi (Edit/Hapus). Seluruh endpoint CRUD diproteksi token (TC-06 s/d TC-10).
+
+---
+
+### Screenshot 6 – Halaman Laporan Anggaran Iklan
+![SS Laporan](./screenshots/real_ss5_laporan.png)
+
+> Laporan menampilkan: Budget vs Realisasi (79%), Revenue IDR 3.4Jt, ROI 25%, ROAS 1.3x, grafik Tren Revenue vs Biaya, dan performa antar platform.
+
+---
+
+### Screenshot 7 – Halaman Login Pengguna (Operator)
+![SS Login User](./screenshots/real_ss6_user_login.png)
+
+> Form Login Pengguna/Operator — akses terpisah dari Admin untuk menjaga keamanan berbasis role (JWT). Pengguna hanya bisa akses input realisasi dan performa kampanye.
 
 ---
 
