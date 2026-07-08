@@ -266,16 +266,20 @@ doc.add_paragraph()
 add_heading(doc, "Langkah 4 – Dokumentasi Bukti (Screenshot)", level=1)
 
 screenshots = [
-    ("ss1_jest_test_results.png", "Screenshot 1 – Hasil Eksekusi Jest (Semua Test PASS)", 
-     "Menampilkan output terminal Jest dengan 15 test case yang semuanya PASS (\u2713) dalam waktu 11.889 detik. Tool: Jest v29 + Supertest v6."),
-    ("ss2_login_page.png", "Screenshot 2 – Halaman Login Aplikasi",
-     "Halaman login Sistem Pengelolaan Anggaran Iklan Digital. Form email dan password yang divalidasi di backend (TC-01 s/d TC-05)."),
-    ("ss3_dashboard.png", "Screenshot 3 – Dashboard Utama (User)",
-     "Dashboard user menampilkan ringkasan: sisa anggaran, total realisasi, dan daftar kampanye aktif. Endpoint /api/dashboard/summary diproteksi JWT (TC-14)."),
-    ("ss4_campaign_management.png", "Screenshot 4 – Halaman Manajemen Campaign",
-     "Halaman CRUD campaign dengan tabel data, tombol tambah, edit, dan hapus. Seluruh endpoint campaign memerlukan token autentikasi (TC-06 s/d TC-10)."),
-    ("ss5_reports_page.png", "Screenshot 5 – Halaman Laporan Admin",
-     "Halaman laporan admin dengan filter kampanye, ringkasan anggaran, tabel realisasi, dan fitur Export PDF menggunakan PDFKit."),
+    ("real_ss_jest_cmd.png", "Screenshot 1 – Hasil Eksekusi Jest (15/15 PASS)",
+     "Output Jest test suite: 15 test case PASS semua dalam waktu 12.042 detik. Dijalankan dengan perintah: npm test -- --verbose di direktori backend. Tool: Jest v29 + Supertest v6."),
+    ("real_ss1_selection.png", "Screenshot 2 – Halaman Seleksi (Landing Page)",
+     "Halaman utama aplikasi AdBudget Manager menampilkan dua pilihan akses: Portal Admin (Manajemen Perusahaan) dan Ruang Kerja Pengguna (Operasi Kampanye)."),
+    ("real_ss2_admin_login.png", "Screenshot 3 – Halaman Login Admin",
+     "Form login Admin dengan field Email dan Kata Sandi. Diproteksi rate limiter (10 request/15 menit) untuk mencegah brute force attack (TC-01 s/d TC-05)."),
+    ("real_ss3_dashboard.png", "Screenshot 4 – Dashboard Admin (Dasbor Anggaran)",
+     "Dashboard admin menampilkan: Total Anggaran Rp 3.400.121, Total Realisasi Rp 2.700.121, Total Revenue Rp 3.383.500, dan daftar kampanye aktif. Endpoint diproteksi JWT (TC-14)."),
+    ("real_ss4_campaign.png", "Screenshot 5 – Halaman Manajemen Kampanye",
+     "Halaman Manajemen Kampanye menampilkan tabel campaign dengan kolom: Nama, ID, Platform, Durasi, Total Anggaran, Aksi (Edit/Hapus). Endpoint CRUD diproteksi token (TC-06 s/d TC-10)."),
+    ("real_ss5_laporan.png", "Screenshot 6 – Halaman Laporan Anggaran Iklan",
+     "Halaman Laporan menampilkan: Total Budget vs Realisasi (79%), Total Revenue IDR 3.4Jt, ROI 25%, ROAS 1.3x, grafik Tren Revenue vs Biaya, dan Performa antar Platform."),
+    ("real_ss6_user_login.png", "Screenshot 7 – Halaman Login Pengguna (Operator)",
+     "Form Login Pengguna/Operator dengan field Email Pengguna dan Kata Sandi. Akses terpisah dari Admin untuk menjaga keamanan hak akses berbasis role (JWT)."),
 ]
 
 for filename, caption, description in screenshots:
