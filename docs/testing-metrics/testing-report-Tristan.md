@@ -123,8 +123,35 @@ git push
 
 ## 8. Nilai Tambahan (Opsional, +10)
 
-> Jika kamu pakai tools seperti PHPUnit, Pest, JUnit, Jest, Vitest, Playwright, Cypress, atau Laravel Dusk, tambahkan bagian ini:
+### Tool yang Digunakan
+- **Jest** v29 (Node.js Unit & Integration Testing Framework)  
+- **Supertest** v6 (HTTP assertion library untuk testing Express API)
 
-- **Tool yang digunakan:** [nama tool]
-- **Screenshot hasil eksekusi test:** `![Test Execution](./screenshots/test-run.png)`
-- **Penjelasan singkat:** [jelaskan test otomatis apa yang dijalankan dan hasilnya]
+### Cara Menjalankan Test
+```bash
+# Install dependencies
+cd backend
+npm install
+
+# Jalankan semua test
+npm test
+
+# Jalankan dengan output verbose
+npm test -- --verbose
+```
+
+### File Test
+- **Lokasi:** `backend/tests/auth.test.js`
+- **Total Test Case:** 15
+- **Coverage:** Login API, Campaign CRUD API, Dashboard & Health Check API
+
+### Hasil Eksekusi
+```
+PASS tests/auth.test.js (4.222 s)
+
+Test Suites: 1 passed, 1 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        4.222 s, estimated 6 s
+```
+
