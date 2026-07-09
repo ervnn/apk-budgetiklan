@@ -87,7 +87,7 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 2. ![List Campaign](./screenshots/campaign-list.png)
 3. ![Form Tambah Campaign](./screenshots/real_ss4_campaign.png)
 4. ![Dashboard](./screenshots/real_ss3_dashboard.png)
-5. ![Hasil Pengujian CRUD Data](./screenshots/crud-test-result.png)
+5. ![Hasil Pengujian CRUD Data](./screenshots/real_ss_jest_cmd.png)
 
 ---
 
