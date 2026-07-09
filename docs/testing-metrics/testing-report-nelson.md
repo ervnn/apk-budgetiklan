@@ -76,9 +76,9 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 1. Login - <img width="1918" height="897" alt="image" src="https://github.com/user-attachments/assets/0e5401dc-4623-4108-b161-90f6dc70acdc" />
 
-2. <img width="1918" height="857" alt="image" src="https://github.com/user-attachments/assets/4cf9cd15-6ccc-442b-942b-c48dcbe35101" />
+2.  Campaign Management- <img width="1918" height="857" alt="image" src="https://github.com/user-attachments/assets/4cf9cd15-6ccc-442b-942b-c48dcbe35101" />
 
-3. <img width="1917" height="928" alt="image" src="https://github.com/user-attachments/assets/633346c9-369c-4e3b-9e9a-ce8b330e6d7f" />
+3. Test Case Login Pass - <img width="1917" height="928" alt="image" src="https://github.com/user-attachments/assets/633346c9-369c-4e3b-9e9a-ce8b330e6d7f" />
 <img width="1917" height="837" alt="image" src="https://github.com/user-attachments/assets/57ccb2ee-604a-4701-a9d7-5d3fc83e4b70" />
 4. Tidak ada
 5. Tidak ada
