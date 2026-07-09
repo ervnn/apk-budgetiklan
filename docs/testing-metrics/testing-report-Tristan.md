@@ -155,3 +155,10 @@ Snapshots:   0 total
 Time:        4.222 s, estimated 6 s
 ```
 
+### Penjelasan Singkat
+
+Jest digunakan untuk melakukan **integration testing** pada REST API backend menggunakan Supertest. Setiap test case mengirimkan HTTP request ke endpoint aplikasi dan memverifikasi:
+- **Status code** HTTP yang dikembalikan (200, 400, 401, 404)
+- **Struktur JSON** respons (field `success`, `message`, `data`)
+- **Nilai field** tertentu (contoh: `success: true`, `message` berisi string tertentu)
+
