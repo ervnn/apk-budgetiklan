@@ -83,10 +83,10 @@ Defect Density = Jumlah Bug / Jumlah Fitur
 
 > Lampirkan minimal 5 screenshot berikut (ganti placeholder di bawah dengan gambar asli hasil pengujianmu):
 
-1. `![Halaman Login](./screenshots/login.png)`
+1. `![Halaman Login](./screenshots/real_ss2_admin_login.png)`
 2. `![List Campaign](./screenshots/campaign-list.png)`
-3. `![Form Tambah Campaign](./screenshots/campaign-form.png)`
-4. `![Dashboard](./screenshots/dashboard.png)`
+3. `![Form Tambah Campaign](./screenshots/real_ss4_campaign.png)`
+4. `![Dashboard](./screenshots/real_ss3_dashboard.png)`
 5. `![Hasil Pengujian CRUD Data](./screenshots/crud-test-result.png)`
 
 ---
